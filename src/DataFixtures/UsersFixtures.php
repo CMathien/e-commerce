@@ -19,12 +19,12 @@ class UsersFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $admin = new Users();
-        $admin->setEmail("camille.mathien@gmail.com");
-        $admin->setLastname("Mathien");
+        $admin->setEmail("admin@admin.com");
+        $admin->setLastname("Admin");
         $admin->setFirstname("Camille");
-        $admin->setAddress("28 rue Rémy Cogghe");
-        $admin->setZipcode("59100");
-        $admin->setCity("Roubaix");
+        $admin->setAddress("28 rue Test");
+        $admin->setZipcode("01000");
+        $admin->setCity("Paris");
         $admin->setPassword(
             $this->passwordEncoder->hashPassword($admin, 'password')
         );
