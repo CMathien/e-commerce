@@ -1,5 +1,5 @@
 <h1>Activez votre compte</h1>
-<p>Bponjour {{ user.firstname }}</p>
+<p>Bonjour {{ user.firstname }},</p>
 <p>Validez votre inscription sur S6D en cliquant sur le lien suivant :</p>
 <p><a href="{{ absolute_url(path('verify_user', {token: token})) }}">Cliquez ici</a></p>
 <p>Ce lien expirera dans trois heures.</p>
