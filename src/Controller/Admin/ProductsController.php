@@ -30,6 +30,8 @@ class ProductsController extends AbstractController
 
         $productForm->handleRequest($request);
         if($productForm->isSubmitted() && $productForm->isValid()){
+            $images = $productForm->get('images')->getData();
+
             $slug = $slugger->slug($product->getName())->lower();
             $product->setSlug($slug);
 
