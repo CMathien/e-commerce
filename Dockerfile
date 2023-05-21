@@ -51,6 +51,7 @@ RUN set -eux; \
 		intl \
 		opcache \
 		zip \
+        gd \
     ;
 
 ###> recipes ###
@@ -98,14 +99,14 @@ RUN set -eux; \
 COPY --link  . ./
 RUN rm -Rf docker/
 
-RUN set -eux; \
-	mkdir -p var/cache var/log; \
-    if [ -f composer.json ]; then \
-		composer dump-autoload --classmap-authoritative --no-dev; \
-		composer dump-env prod; \
-		composer run-script --no-dev post-install-cmd; \
-		chmod +x bin/console; sync; \
-    fi
+# RUN set -eux; \
+# 	mkdir -p var/cache var/log; \
+#     if [ -f composer.json ]; then \
+# 		composer dump-autoload --classmap-authoritative --no-dev; \
+# 		composer dump-env prod; \
+# 		composer run-script --no-dev post-install-cmd; \
+# 		chmod +x bin/console; sync; \
+#     fi
 
 # Dev image
 FROM app_php AS app_php_dev
