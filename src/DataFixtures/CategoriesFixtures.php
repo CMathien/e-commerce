@@ -9,7 +9,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CategoriesFixtures extends Fixture
 {
-    private $counter = 1;
+    private int $counter = 1;
 
     public function __construct(private SluggerInterface $slugger){}
 
@@ -29,7 +29,7 @@ class CategoriesFixtures extends Fixture
         $manager->flush();
     }
 
-    public function createCategory(string $name, Categories $parent = null, ObjectManager $manager)
+    public function createCategory(string $name, Categories $parent = null, ObjectManager $manager): Categories
     {
         $category = new Categories();
         $category->setName($name);

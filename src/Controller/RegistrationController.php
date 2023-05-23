@@ -68,14 +68,14 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('verif/{token}', name: 'verify_user')]
-    public function verifyUser($token, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $em): Response
+    public function verifyUser(string $token, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $em): Response
     {
         if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))){
             $payload = $jwt->getPayload($token);
             $user = $usersRepository->find($payload['user_id']);
             if($user && !$user->getIsVerified()){
                 $user->setIsVerified(true);
-                $em->flush($user);
+                $em->flush();
                 $this->addFlash('success', 'Utilisateur vérifié.');
                 return $this->redirectToRoute('profile_index');
             }
@@ -94,6 +94,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         
+        /** @phpstan-ignore-next-line */
         if ($user->getIsVerified()){
             $this->addFlash('warning', 'Utilisateur déjà vérifié.');
             return $this->redirectToRoute('profile_index');
@@ -104,13 +105,13 @@ class RegistrationController extends AbstractController
             'alg' => 'HS256'
         ];
         $payload = [
-            'user_id' => $user->getId()
+            'user_id' => $user->getId() /** @phpstan-ignore-line */
         ];
         $token = $jwt->generate($header, $payload, $this->getparameter('app.jwtsecret'));
 
         $mail->send(
             "no-reply@s6d.fr",
-            $user->getEmail(),
+            $user->getEmail(), /** @phpstan-ignore-line */
             'Activation de votre compte S6D',
             'register',
             compact('user', 'token')

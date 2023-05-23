@@ -6,6 +6,10 @@ use DateTimeImmutable;
 class JWTService
 {
 
+    /**
+     * @param array<string, string> $header
+     * @param array<string, int> $payload
+     */
     public function generate(array $header, array $payload, string $secret, int $validity = 10800): string
     {
         if($validity > 0){
@@ -43,7 +47,10 @@ class JWTService
         ) === 1;
     }
 
-    // get payload, to check if token is expired and signature
+    /**
+     * Get payload, to check if token is expired and signature
+     * @return array<string, mixed> $payload
+     */
     public function getPayload(string $token): array
     {
         $array = explode('.', $token);
@@ -51,7 +58,10 @@ class JWTService
         return $payload;
     }
 
-    // get header, to check signature
+    /**
+     * Get header, to check signature
+     * @return array<string, mixed> $payload
+     */
     public function getHeader(string $token): array
     {
         $array = explode('.', $token);
@@ -66,7 +76,7 @@ class JWTService
         return $payload['exp'] < $now->getTimestamp();
     }
 
-    public function check(string $token, string $secret)
+    public function check(string $token, string $secret): bool
     {
         $header = $this->getHeader($token);
         $payload = $this->getPayload($token);

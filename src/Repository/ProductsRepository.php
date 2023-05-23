@@ -40,6 +40,9 @@ class ProductsRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return array<string, mixed> $result
+     */
     public function findProductsPaginated(int $page, string $slug, int $limit = 6): array
     {
         $limit = abs($limit);

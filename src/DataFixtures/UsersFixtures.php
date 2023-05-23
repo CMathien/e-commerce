@@ -12,8 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UsersFixtures extends Fixture
 {
     public function __construct(
-        private UserPasswordHasherInterface $passwordEncoder,
-        private SluggerInterface $slugger
+        private UserPasswordHasherInterface $passwordEncoder
     ){}
 
     public function load(ObjectManager $manager): void

@@ -17,7 +17,7 @@ class PictureService
 
     public function add(UploadedFile $picture, ?string $folder = '', ?int $width = 250, ?int $height = 250)
     {
-        $file = md5(uniqid(rand(), true)) . '.webp';
+        $file = md5(uniqid(strval(rand()), true)) . '.webp';
 
         $picture_infos = getimagesize($picture);
 
