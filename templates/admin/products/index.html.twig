@@ -1,13 +1,44 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Administration des produits{% endblock %}
+{% block title %}Liste des produits{% endblock %}
 
 {% block body %}
-        <main class="container">
-            <section class="row">
-                <div class="col-12">
-                    <h1>Administration des produits</h1>
-                </div>
-            </section>
-        </main>
+    <div class="container">
+        <div class="row">
+            {% include "_partials/_adminnav.html.twig" %}
+            <main class="col-9 border border-light bg-white p-2">
+                <h1>Liste des produits</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Photo</th>
+                            <th>Nom</th>
+                            <th>Prix</th>
+                            <th>Stock</th>
+                            <th>Catégorie</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>
+                                    <img src="{{ asset('assets/uploads/products/mini/300x300-') ~ product.images[0].name }}" class="d-block w-100" alt="{{ product.name }}">
+                                </td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.price / 100 }}</td>
+                                <td>{{ product.stock }}</td>
+                                <td>{{ product.categories.name }}</td>
+                                <td>
+                                    <a href="{{ path('admin_products_edit', {id: product.id}) }}" class="btn btn-success">Modifier</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+    </div>
 {% endblock %}
