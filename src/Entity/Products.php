@@ -9,6 +9,7 @@ use App\Entity\Trait\SlugTrait;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 class Products
@@ -22,6 +23,15 @@ class Products
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: 'Le nom du produit ne peut pas être vide.'
+    )]
+    #[Assert\Length(
+        min: 8,
+        max: 200,
+        minMessage: 'Le titre doit faire au moins {{ limit }} caractères.',
+        maxMessage: 'Le titre ne doit pas faire plus de {{ limit }} caractères.'
+    )]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -31,6 +41,9 @@ class Products
     private ?int $price = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero(
+        message: 'Le stock ne peut pas être négatif.'
+    )]
     private ?int $stock = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
