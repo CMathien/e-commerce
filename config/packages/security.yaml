@@ -13,7 +13,25 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+        registration:
+            pattern: ^/api/users
+            security: false
+            stateless: true
+            methods: [POST]
+        login:
+            pattern:  ^/api/login
+            stateless: true
+            security: false
+            json_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern:   ^/api
+            security: false
+            stateless: true
+            jwt: ~
+        default:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\UsersAuthenticator
@@ -34,6 +52,8 @@ security:
         - { path: ^/admin, roles: ROLE_PRODUCT_ADMIN }
         # - { path: ^/admin/utilisateurs, roles: ROLE_ADMIN }
         - { path: ^/profil, roles: ROLE_USER }
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE, PATCH] }
 
     role_hierarchy:
       ROLE_PRODUCT_ADMIN: ROLE_USER
