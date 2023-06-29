@@ -7,7 +7,9 @@ use App\Entity\Trait\CreatedAtTrait;
 use App\Repository\OrdersRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Metadata\ApiResource;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: OrdersRepository::class)]
 class Orders
 {
