@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "2a0d4e72-80de-4ffd-9f63-c376ef1e8a47",
+		"name": "App Symfony React",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16000059"
+	},
+	"item": [
+		{
+			"name": "Login check",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}api/users",
+					"host": [
+						"{{url}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get JWT with user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"token\", pm.response.json().token);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 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",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin@admin.com\",\r\n  \"password\": \"password\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}api/login_check",
+					"host": [
+						"{{url}}api"
+					],
+					"path": [
+						"login_check"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
